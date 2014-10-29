@@ -26,7 +26,7 @@ public class addressBookGUI extends JFrame implements ActionListener {
         addressBookGUI gui = new addressBookGUI();
     }
     /****************************************************************************************************
-     *                          GUI Components which are drawn to the screen
+     *                                          GUI Components
      ****************************************************************************************************/
     /**
      * Will draw up the frame
@@ -35,14 +35,9 @@ public class addressBookGUI extends JFrame implements ActionListener {
         disabledItems = new ArrayList<JMenuItem>();
         frame = new CloseableFrame("AddressBook");
         frame.setSize(800, 600);
-
-        // Set up frame itself – title,size,location
-
         JMenuBar menuBar = new JMenuBar( ){};
         JMenuItem item;
-
         setJMenuBar( menuBar );
-
         JMenu bookMenu = new JMenu( "Address Book" );
             item = new JMenuItem ( "New" );
             item.addActionListener(this);
@@ -56,8 +51,6 @@ public class addressBookGUI extends JFrame implements ActionListener {
             disabledItems.add(item);
             bookMenu.add(item);
             menuBar.add( bookMenu );
-
-
         JMenu buddyMenu = new JMenu( "Buddy" );
             item = new JMenuItem ( "Add" );
             item.setEnabled(false);
@@ -75,13 +68,10 @@ public class addressBookGUI extends JFrame implements ActionListener {
             disabledItems.add(item);
             buddyMenu.add(item);
             menuBar.add( buddyMenu );
-
         createAddressBook();
         createListWindow();
         frame.add(menuBar, BorderLayout.NORTH);
         frame.setVisible(true);
-
-
     }
 
     /**
@@ -109,7 +99,6 @@ public class addressBookGUI extends JFrame implements ActionListener {
     private void addeditPanel(String operation){
         JButton button;
         JLabel label;
-
         JPanel addPanel = new JPanel();
             addPanel.setLayout(new GridLayout(3, 2));
             label = new JLabel("Name");
@@ -124,11 +113,9 @@ public class addressBookGUI extends JFrame implements ActionListener {
             addPanel.add(label);
             numberField = new JTextField();
             addPanel.add(numberField);
-
         button = new JButton(operation + " Buddy");
             button.addActionListener(this);
             button.setSize(400,100);
-
         addFrame = new JFrame(operation + " Buddy");
             addFrame.setSize(400, 300);
             addFrame.add(addPanel);
@@ -152,9 +139,11 @@ public class addressBookGUI extends JFrame implements ActionListener {
     {
         return JOptionPane.showInputDialog(null, message, "addressBook");
     }
+
     /****************************************************************************************************
      *                                  Background Functions
      ****************************************************************************************************/
+
     /**
      * Will return an empty address book
      */
@@ -192,7 +181,7 @@ public class addressBookGUI extends JFrame implements ActionListener {
                 book.addBuddy(new buddyInfo(buddyString[0], buddyString[1], Integer.parseInt(buddyString[2])));
             }
         }catch (NumberFormatException ex) {
-            //soms number parsing did not work, file must be corrupt
+            //some number parsing did not work, file must be corrupt
             messageBox("File is corrupted!", "File Error");
         }catch (IOException e) {
             //file rights not given
@@ -203,6 +192,7 @@ public class addressBookGUI extends JFrame implements ActionListener {
     /****************************************************************************************************
      *                          ListItem and Button Actions and their active functions
      ****************************************************************************************************/
+
     /**
      * Action Listener
      */
@@ -251,7 +241,6 @@ public class addressBookGUI extends JFrame implements ActionListener {
     private void addItem(){
         addeditPanel("Add");
     }
-
     /**
      * Button for adding a buddy to the list
      */
@@ -325,10 +314,9 @@ public class addressBookGUI extends JFrame implements ActionListener {
         if (input != null && !input.isEmpty()){
             saveBook(input);
         }else{
-            messageBox("That file is not valid!","Input Error");
+            messageBox("That file is not valid!", "Input Error");
         }
     }
-
     /**
      * remove the buddy all together
      */
